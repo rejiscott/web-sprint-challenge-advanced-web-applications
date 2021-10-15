@@ -49,7 +49,7 @@ const Login = () => {
         </ModalContainer>
         <ModalContainer>
             <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
+            <Label htmlFor="username">Username</Label>
             <input
             id="username"
             data-testid="username"
@@ -70,7 +70,7 @@ const Login = () => {
             </form>
         </ModalContainer>
         <p id="error">
-{           state.errorMessage}
+{           formValues.errorMessage}
         </p>
     </ComponentContainer>
     );
