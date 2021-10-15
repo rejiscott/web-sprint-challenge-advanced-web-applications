@@ -69,13 +69,14 @@ const Login = () => {
             <button id="submit">login</button>
             </form>
         </ModalContainer>
+        <p id="error">
+{           state.errorMessage}
+        </p>
     </ComponentContainer>
     );
 
 }
-<p id="error">
-{state.errorMessage}
-</p>
+
 export default Login;
 
 //Task List

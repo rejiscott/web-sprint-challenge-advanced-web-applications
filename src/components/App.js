@@ -9,10 +9,7 @@ import View from './View';
 import Login from './Login';
 import Logout from './Logout';
 
-const initialLoginValues = {
-  username: '',
-  password: '',
-};
+
 const App = () => {
   return (
     <AppContainer>
