@@ -1,16 +1,81 @@
-import React from 'react';
+import axiosWithAuth from "../utils/axiosWithAuth";
+import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+const initialValues = {
+    username: '', 
+    password: '',
+    errorMessage : ''
+};
 const Login = () => {
     
+    const { push } = useHistory();
+    const [formValues, setFormValues] = useState(initialValues);
+    const [error, setError] = useState();
+
+    const handleChanges = (e) => {
+        setFormValues({
+          ...formValues,
+          [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (formValues.username !== "Lambda" || formValues.password !== "School") {
+            setError("Enter valid username and password")
+        } 
+
+        axiosWithAuth()
+        .post('/api/login', formValues)
+            .then((res) =>{
+                console.log("Axios Login Post ", res)
+                localStorage.setItem('token', res.data.payload)
+                push('/View')
+            })
+            .catch((err) => {
+                console.log({err})
+                setFormValues({
+                    ...state,
+                    errorMessage: err.response.data.error 
+                  })
+            })
+    }
     return(<ComponentContainer>
         <ModalContainer>
             <h1>Welcome to Blogger Pro</h1>
             <h2>Please enter your account information.</h2>
         </ModalContainer>
-    </ComponentContainer>);
-}
+        <ModalContainer>
+            <form onSubmit={handleSubmit}>
+            <label htmlFor="username">Username</label>
+            <input
+            id="username"
+            data-testid="username"
+            name="username"
+            value={formValues.username}
+            onChange={handleChanges}
+            />
+            <label htmlFor="password">Password</label>
+            <input
+            id="password"
+            data-testid="password"
+            name="password"
+            type="password"
+            value={formValues.password}
+            onChange={handleChanges}
+            />
+            <button id="submit">login</button>
+            </form>
+        </ModalContainer>
+    </ComponentContainer>
+    );
 
+}
+<p id="error">
+{state.errorMessage}
+</p>
 export default Login;
 
 //Task List

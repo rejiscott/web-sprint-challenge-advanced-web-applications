@@ -1,7 +1,18 @@
 import React from 'react';
+import {useHistory} from 'react-router';
 
 const Logout = () => {        
-    return(<div></div>);
+    const {push}=useHistory();
+
+    axios.post ('http://localhost:5000/api/logout')
+    .then(response =>{
+        localStorage.removeItem('token')
+        push('/login')
+    })
+    .catch(err => console.log(err))
+    return(
+        <div><h2>You logged out!</h2></div>
+    )
 }
 
 export default Logout;

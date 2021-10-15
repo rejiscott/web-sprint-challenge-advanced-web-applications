@@ -9,19 +9,26 @@ import View from './View';
 import Login from './Login';
 import Logout from './Logout';
 
+const initialLoginValues = {
+  username: '',
+  password: '',
+};
 const App = () => {
   return (
     <AppContainer>
       <LambdaHeader/>
       <Header/>
       <RouteContainer>
-        <Route exact path="/">
+        <PrivateRoute path='/view'><View/></PrivateRoute>
+        <PrivateRoute path='/logout'><Logout/></PrivateRoute>
+        <Route exact path="/login">
           <Login/>
-        </Route>          
+        </Route>         
       </RouteContainer>
     </AppContainer>
   )
 }
+
 
 export default App;
 
